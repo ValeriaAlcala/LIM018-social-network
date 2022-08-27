@@ -8,7 +8,7 @@ import {
     currentUser,
     // allPost,
   } from '../firebase/firebaseConfig.js';
-  
+
   export const createHomeView = () => {
     const viewHome = `
     <header>
@@ -132,7 +132,7 @@ import {
                     </ul>
   
                 </div>
-                  
+
                 <section class='modalHome'>
                     <div class = 'modal_containerHome'>
                         <div class= 'firstModalSection'>
@@ -150,6 +150,7 @@ import {
                         </div>
 
                         <div class='thirdModalSection'>
+                            <div id='preview'></div>
                             <div class = 'photoSelect id='srcfile1'>
                                 <input type='file' class='insertImageBtn' name='srcfile1' accept='image/png, image/jpeg'>
                             </div>    
@@ -170,7 +171,7 @@ import {
         });
 
         //CERRAR POST MODAL
-        btnEquisModal.addEventListener('click', (event) => {
+        btnEquisModal.addEventListener('click', () => {
            modalPostHome.classList.remove('modalShowHome');
         }); 
   
@@ -180,7 +181,8 @@ import {
                 postContent: userPostInfo.value,
                 dateCreated: new Date().toLocaleString(),
                 userName: auth.currentUser.displayName,
-            userId: auth.currentUser.uid,
+                userId: auth.currentUser.uid,
+                photoURL: 'https://example.com/jane-q-user/profile',
             });
         });
   
@@ -205,7 +207,7 @@ import {
 
       });
     });
-    
+
   };
         // // MENU PARA TEDITAR O ELIMAR EL POST
         // const menusDesplegables = document.querySelectorAll('.btn-seeMore');

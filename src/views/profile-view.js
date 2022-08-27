@@ -2,7 +2,13 @@ export const createProfileView = () => {
   const profileView = `
         <div class = 'create-post-Container'>
 
-        <header></header>
+        <header class='headerProfile'>
+          <div class='backgroundImageProgfile'></div>
+          <div class='profileSectionInfo'>
+            <div class='imageUserProfile'></div>
+            <div class='nameUserProfile'></clas>
+          </div>
+        </header>
  
           <div class="tab-menu">
             <ul class="tab-menu-list">

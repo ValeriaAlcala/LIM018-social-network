@@ -12,7 +12,7 @@ export const createSignUpView = () => {
     <div class='view'>
       <div class='logo'>tripster</div>
       <br>
-        <form>
+        <form method enctype='multipart/form-data'>
           <input type='text' placeholder='Nombre y apellido' id='userName' class="registerInputs">
           <br>
           <input type='email' placeholder='Correo electrónico' id='email' class="registerInputs">
