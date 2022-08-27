@@ -20,7 +20,7 @@ import {
         <div class='conteinerPost'>
             <div class='userPost'>
                 <div class='userImage'>
-                    <img src='./images/user-line-white.png' class='icon'>
+                    <img src='./images/user-line-white.png' class='iconPost'>
                 </div>
                 <input type='text' readonly class='inputPostOpenModal' placeholder='Vamos, ¡pon algo!'>
             </div>
@@ -39,11 +39,11 @@ import {
               <span class='tab-menu-text'>Inicio</span>
             </li>
 
-            <li class="tab-menu-item">
-              <span class='tab-menu-icon' id='profileSection'><img src='./images/user-line.png'></span>
+            <li class="tab-menu-item" id='profileSection'>
+              <span class='tab-menu-icon'><img src='./images/user-line.png'></span>
               <span class='tab-menu-text'>Mi cuenta</span>
-             </li>
-         </ul>
+            </li>
+        </ul>
     </div> 
 
     <div class='postContainer'></div>`;
@@ -59,18 +59,7 @@ import {
     const openModalHomePost= document.querySelector('.inputPostOpenModal');
     const changeViewProfile= document.querySelector('#profileSection');
     const publications = document.querySelector('.postContainer');
-    const menuItems = document.querySelectorAll('.tab-menu-item');
 
-    // BARRA ESTATICA
-    const previousSelectItems = menuItems[0];
-    menuItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        previousSelectItems.classList.remove('item-menu-active');
-        // previousSelectItems = item;
-        // item.classList.add('tab-menu-active');
-      });
-    });
-    
     //CAMBIAR DE VISTA HACIA EL PERFIL DEL USUARIO
     changeViewProfile.addEventListener('click', () => {
         window.location.href = '#/profile';
@@ -90,6 +79,7 @@ import {
                     <div class='individualPosts'>
   
                         <div class = 'first-section-posts'>
+                            <div class='imagenDeUsuario'></div>
                             <div class = 'imageProfile'>
                                 <div class = 'UserNamer'> ${enteringTheCollection.userName} </div>
                                 <div class = 'dateCreatedP dataid='${postsDoc.id}'> ${enteringTheCollection.dateCreated} </div>
@@ -113,7 +103,7 @@ import {
   
                                 <div class = 'editOption'>
                                     <img src='./images/edit-box-line.png' class='icon'> </img>
-                                    <li class= 'post-menu-item editPost' id= 'editPost' data-id='${postsDoc.id}'>Editar</li>
+                                    <li class= 'post-menu-item' id= 'editPost' data-id='${postsDoc.id}'>Editar</li>
                                 </div>
 
                             </ul>
@@ -123,17 +113,23 @@ import {
 
                     <br>
 
-                    <imput type='text' class= 'textPost' disabled="true" id='${postsDoc.id}'> ${enteringTheCollection.postContent}
+                    <div class= 'textPost' disabled="true" id='${postsDoc.id}'> ${enteringTheCollection.postContent}</div>
   
-                    <br>
-                    <br>
+                    <ul class = 'interactions'>
+  
+                      <div class = 'deleteOption'>
+                          <img src='./images/heart-3-line.png' class='icon-interactions'> </img>
+                          <li class= 'textInt' data-id='${postsDoc.id}'> Me Gusta</li>
+                       </div>
 
-                    <div class= 'interactions'>
-                      <img src='./images/heart-3-line.png' class= 'interactionsbuttons'>
-                      <img src='./images/chat-1-line.png' class= 'interactionsbuttons'>
-                    </div>
+                        <br>
 
+                      <div class = 'editOption'>
+                          <img src='./images/chat-1-line.png' class='icon-interactions'> </img>
+                          <li class= 'textInt' data-id='${postsDoc.id}'>Comentar</li>
+                      </div>
 
+                    </ul>
   
                 </div>
                   
@@ -154,8 +150,8 @@ import {
                         </div>
 
                         <div class='thirdModalSection'>
-                            <div class = 'photoSelect'>
-                                <input type='file' class='insertImageBtn' accept='image/png, image/jpeg'>
+                            <div class = 'photoSelect id='srcfile1'>
+                                <input type='file' class='insertImageBtn' name='srcfile1' accept='image/png, image/jpeg'>
                             </div>    
                         </div>
                     </div>
@@ -175,7 +171,6 @@ import {
 
         //CERRAR POST MODAL
         btnEquisModal.addEventListener('click', (event) => {
-           // const btnCerrarSesion = event.target.closest('.menu-salir').querySelector('.opciones-btn-salir');
            modalPostHome.classList.remove('modalShowHome');
         }); 
   
@@ -201,15 +196,32 @@ import {
         // EDITANDO EL POST
         const editBtn = publications.querySelectorAll('#editPost');
         editBtn.forEach((btn) => {
-          // console.log(btn);
+
           btn.addEventListener('click', async (e) => {
             const docId = await onePost(e.target.dataset.id);
-            // const infoPost = docId.data();
-  
             publications[textPost].value = enteringTheCollection.postContent;
           });
         });
-  
+
+      });
+    });
+    
+  };
+        // // MENU PARA TEDITAR O ELIMAR EL POST
+        // const menusDesplegables = document.querySelectorAll('.btn-seeMore');
+        // menusDesplegables.forEach((editbtnMenu) => {
+        //   console.log(editbtnMenu);
+        //   editbtnMenu.addEventListener('click', (event) => {
+        //     const btnMenu = event.target.closest('.menuOptions').querySelector
+        // ('.post-options-menu'); // btns edit,delete
+        //     if (btnMenu.classList.contains('show-Menu')) { // class show.menu
+        //       btnMenu.classList.remove('show-Menu');
+        //     } else {
+        //       btnMenu.classList.add('show-Menu');
+        //     }
+        //   });
+        // });
+
         // const taskForm = document.querySelector('individualPosts');
         // const btnsEdit = document.querySelectorAll('.editPost');
         // btnsEdit.forEach((btn) => {
@@ -224,23 +236,6 @@ import {
         //       taskForm['btn-task-form'].innerText = 'Update';
         //     } catch (error) {
         //       console.log(error);
-        //     }
-        //   });
-        // });
-      });
-    });
-  };
-        // // MENU PARA TEDITAR O ELIMAR EL POST
-        // const menusDesplegables = document.querySelectorAll('.btn-seeMore');
-        // menusDesplegables.forEach((editbtnMenu) => {
-        //   console.log(editbtnMenu);
-        //   editbtnMenu.addEventListener('click', (event) => {
-        //     const btnMenu = event.target.closest('.menuOptions').querySelector
-        // ('.post-options-menu'); // btns edit,delete
-        //     if (btnMenu.classList.contains('show-Menu')) { // class show.menu
-        //       btnMenu.classList.remove('show-Menu');
-        //     } else {
-        //       btnMenu.classList.add('show-Menu');
         //     }
         //   });
         // });

@@ -1,5 +1,5 @@
 export const createFirstView = () => {
-    const firstView = `
+  const firstView = `
         <div class = 'firstView-Container'>
           <div class = 'titles-FirstView'>
             <div class ='text-Titles'>Explora.</div>
@@ -13,19 +13,18 @@ export const createFirstView = () => {
           <button type ="button" id="firstViewButton" class="firstViewButton">Encuentra tu proximo viaje</button>
         </div>
         `;
-  
-    const divElement = document.createElement('div');
-    divElement.innerHTML = firstView;
-    divElement.setAttribute('class', 'firstView');
-    const printInBody = document.querySelector('body');
-    printInBody.appendChild(divElement);
-  };
-  
-  export const createBehaviorFirstView = () => {
-    const buttonFirstPage = document.querySelector('#firstViewButton');
-  
-    buttonFirstPage.addEventListener('click', () => {
-      window.location.href = '#/log-in';
-    });
-  };
-  
+
+  const divElement = document.createElement('div');
+  divElement.innerHTML = firstView;
+  divElement.setAttribute('class', 'firstView');
+  const printInBody = document.querySelector('body');
+  printInBody.appendChild(divElement);
+};
+
+export const createBehaviorFirstView = () => {
+  const buttonFirstPage = document.querySelector('#firstViewButton');
+
+  buttonFirstPage.addEventListener('click', () => {
+    window.location.href = '#/log-in';
+  });
+};

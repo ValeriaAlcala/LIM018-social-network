@@ -10,7 +10,6 @@ import {
   signInWithPopup,
   sendEmailVerification,
   updateProfile,
-  //signInWithRedirect,
   // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 
@@ -39,14 +38,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider(app);
-export {GoogleAuthProvider};
+export { GoogleAuthProvider };
 // eslint-disable-next-line max-len
 
 export const signUpWithEmail = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
 export const logInWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
-export const signUpWithGmail = () => { return signInWithPopup(auth, provider) };
+export const signUpWithGmail = () => signInWithPopup(auth, provider);
 
 export const emailVerification = () => sendEmailVerification(auth.currentUser);
 

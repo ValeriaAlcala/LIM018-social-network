@@ -20,9 +20,10 @@ export const changeView = (route) => {
       components.homeBehavior();
       break;
     }
-    // case '#/profile': { container.appendChild(components.profileView());
-    // break;
-    // };
+    case '#/profile': { container.appendChild(components.postView());
+      components.postBehavior();
+      break;
+    }
     default: { components.loginView();
       break;
     }

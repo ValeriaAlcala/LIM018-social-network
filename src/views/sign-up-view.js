@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line import/no-unresolved
 import { collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { registerWithEmail } from '../lib/index.js';
@@ -89,26 +90,26 @@ export const createBehaviorSignUpView = () => {
       });
   });
 
-   gmailButton.addEventListener('click', (e) => {
+  gmailButton.addEventListener('click', (e) => {
     signUpWithGmail()
-    .then((result) => {
-      window.location.hash='#/home'
-    // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-    // The signed-in user info.
-      const user = result.user;
-    // ...
-    }).catch((error) => {
-    // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    // The email of the user's account used.
-      const email = error.customData.email;
-    // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
+      .then((result) => {
+        window.location.hash = '#/home';
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        // eslint-disable-next-line no-unused-vars
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
   });
-});
-
 };

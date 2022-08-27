@@ -10,7 +10,13 @@
     --color-buttons: #ee8271;
 }
 
+li{
+    list-style: none;
+}
+
 /* @media (min-width:320px) and (max-width: 480px){  */
+
+/*PANTALLA DE INICIO*/   
 
 .firstView{
     /* background-color: var(--color-secundary); */
@@ -23,29 +29,32 @@
 }
 
 .titles-FirstView{
-    padding: 45px 50px;    
+    padding: 2.8125rem 3.125rem;    
 }
 
 .text-Titles, .logo{
-    font-family: 'Ubuntu';
-    font-size: 50px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 3.125rem;
+    color: var(--color-text);
 }
 
 .firstViewButton{   
     margin: 0 auto;
     position: absolute;
-    bottom: 50px;
+    bottom: 3.125rem;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Sarabun', sans-serif;
     background-color: var(--color-buttons);
     color: var(--color-secundary);
     border: none;
-    border-radius: 12px;
-    font-size: 14.5px;
-    padding: 8px 20px;
+    border-radius: 0.75rem;
+    font-size: 0.9063rem;
+    padding: 0.5rem 1.25rem;
     width: max-content;
 }
+
+/*SEGUNDA PANTALLA*/
 
 .secondView{
     background-color: var(--color-secundary);
@@ -71,7 +80,7 @@
     border-radius: 25px;
     padding: 15px;
     background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
 }
 
 .emailPassword, .registerInputs{
@@ -94,7 +103,7 @@
     width: 16rem;
     background-color: var(--color-buttons);
     color: var(--color-secundary); 
-    border: solid 1px #E5978B;
+    border: none 1px #E5978B;
     margin-bottom: 30px;
 }
 
@@ -149,6 +158,7 @@
     transform: scale(1.03);
 }
 
+/*HOME*/
 header{
     display: flex;
     justify-content: center;
@@ -162,6 +172,7 @@ header{
     background-color: var(--color-secundary);
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
+    box-shadow: 0 0 0.6rem #807b7a; 
 }
 
 .homeSection{
@@ -170,7 +181,7 @@ header{
 } 
 
 .logoText{
-    font-family: 'Ubuntu';
+    font-family: 'Ubuntu', sans-serif;
     font-size: 35px;
 }
 
@@ -181,12 +192,13 @@ header{
     padding-right: 15px;
 }
 
+/*MENU INFERIOR*/
 .tab-menu{
     background-color: var(--color-secundary);
     padding: 0.5rem 1rem;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
-    box-shadow: 0 0 0.5rem #fcc2ba;
+    box-shadow: 0 0 0.6rem #e7887c;
     position: fixed;
     line-height: 15px;
     bottom: 0px;
@@ -210,34 +222,37 @@ header{
     padding: 0.6rem;
     font-family: 'Lato', sans-serif;
     cursor: pointer;
-    transition: all .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* transition: all .4s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
 
-.tab-menu-icon{
+/* .tab-menu-icon{
     transform: translateY(1px);
     width: 1.6rem;
     height: 1.6rem;
-}    
+} */
 
-.tab-menu-text{
+
+/* .tab-menu-text{
     display: none;
-}
+} */
 
 .tab-menu-active{
-    filter: invert(97%) sepia(42%) saturate(231%) hue-rotate(32deg) brightness(107%) contrast(85%);
+    filter: invert(100%) sepia(12%) saturate(231%) hue-rotate(32deg) brightness(107%) contrast(85%);
     padding: 0.4rem 0.8rem;
-    background-color: #1b9152;
+    background-color: #2b7b63;
 }
 
 .tab-menu-active .tab-menu-text{
     display: block;
-}
+}  
 
+/*ACCESO A VENTANA MODAL*/
 .post-Content{
     margin: 20px;
     border-radius: 30px;
     border: #ced0d4 solid;
     background-color: var(--color-secundary);
+    
 }
 
 .buttonPde{
@@ -251,10 +266,19 @@ header{
     font-size: 0.8rem;
     color: white;
     background-color: var(--color-buttons);
-    border-radius: 15px;
+    border-radius: 0.9375rem;
     border-style: none;
-    padding: 8px 18px;
+    padding: 0.5rem 1.125rem;
     text-decoration: none;
+    margin: 3px;
+}
+
+.inputPostOpenModal{
+    border: none;
+}
+
+.iconPost{
+    height: 1.3rem;
 }
 
 .userPost{
@@ -288,6 +312,8 @@ header{
     padding: 5px 5px 0px;
     margin: 15px 4px;
     border-radius: 15px;
+    border: none;
+    box-shadow: 0 0 0.1rem #807b7a;
 }
 
 .individualPosts{
@@ -299,6 +325,15 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    
+}
+
+.btn-seeMore{
+    border: none;
+    background-color: var(--color-secundary);
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
 }
 
 .first-section-posts{
@@ -307,14 +342,26 @@ header{
     justify-content: space-between; 
 }
 
+.imagenDeUsuario{
+    background-color: rgb(190, 187, 184);
+    width: 40px;
+    height: 40px;
+    margin: 0rem 10px 0px 0px;
+    border-radius: 50%;
+}
+
 .interactions{
     display: flex;
     justify-content: space-evenly;
-    background-color: rgb(255, 255, 255);
-    margin: 10px;
-    padding: 5px;
     border-top-style: solid;
     border-color:  #ced0d4;
+    padding: 10px 10px;
+}
+
+.icon-interactions{
+    width: 18px;
+    height: 18px;
+    padding: 0px 10px 0px 0px;
 }
 
 .interactionsbuttons{
@@ -322,11 +369,10 @@ header{
     padding: 7px;
 }
 
-
 .textPost {
     font-family: 'Lato', sans-serif;
-    font-size: 13.5px;
-    margin: 16px 10px 10px 16px;
+    font-size: 0.8938rem;
+    margin: 0px 10px 15px 16px;
     display: flex;
     flex-direction: column;
 }
@@ -337,7 +383,6 @@ header{
     border-radius: 15px;
     padding: 15px;
     transition: left 0.3s;
-    /* display: none; */
 }
 
 .post-options-menu .show-Menu{
@@ -349,9 +394,15 @@ header{
     padding-right: 5px;
 }
 
+.textInt{
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+
 .deleteOption, .editOption{
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 }
 
 #deleteSection{
@@ -369,12 +420,12 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 30px 15px;
+    padding: 30px 0px;
     background-color: #ffffff;
     box-shadow: 0 0 0.6rem #807b7a;
     align-items: center;
+    width: 100%;
 }
-
 
 .inputPost{
     font-family: 'Sarabun', sans-serif;
@@ -382,12 +433,42 @@ header{
     color: rgb(46, 46, 46);
     word-wrap: break-word;
     height: 20rem;
+    width: 90%;
     border: none;
-    padding: 10px;
+    padding: 0px 0px 20px 10px;
     margin: 10px;
     text-align: left;
     vertical-align: baseline;
     outline: none;
+}
+
+.photoSelect{
+    position:relative;
+    display: inline-block;
+    margin: 20px;
+}
+
+.photoSelect::before{
+    background-color: #cac4c3;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    content: 'Seleccionar Archivo';
+    position: absolute;
+    font-family: 'Sarabun', sans-serif;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.photoSelect input[type='file']{
+    opacity: 0;
+    width: 200px;
+    height: 32px;
+    display: inline-block;
 }
 
 .createPostModal, .closeModalHome{
@@ -435,6 +516,15 @@ header{
     pointer-events: unset;
 }
 
+.closeModalHome{
+    border: none;
+    margin: 10px;
+    background-color: #cac4c3;
+    padding: 5px 8px;
+    color: var(--color-secundary);
+    border-radius: 50%;
+}
+
 
 /* .closeModalHome{
     text-decoration: none;
@@ -446,7 +536,7 @@ header{
     display: inline-block;
     font-weight: 300;
     transition: background-color .3s;
-} */ */ */
+} */
 
 
 
