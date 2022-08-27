@@ -11,44 +11,43 @@ import {
   
   export const createHomeView = () => {
     const viewHome = `
-  
-      <header>
+    <header>
         <img src='./images/logo-tripster.png' class='principal-logo'> 
         <div class='logoText'>tripster</div>
-      </header>
+    </header>
   
-      <section class='post-Content'>
-  
+    <section class='post-Content'> 
         <div class='conteinerPost'>
-          <div class='userPost'>
-              <div class='userImage'>
-                <img src='./images/user-line-white.png' class='icon'>
-              </div>
-              <input type='text' id='userPostCreate' class='inputPost' placeholder='Vamos, ¡pon algo!'>
-          </div>
+            <div class='userPost'>
+                <div class='userImage'>
+                    <img src='./images/user-line-white.png' class='icon'>
+                </div>
+                <input type='text' readonly class='inputPostOpenModal' placeholder='Vamos, ¡pon algo!'>
+            </div>
         </div>
   
         <div class='buttonPde'>
           <button  id='publish-Button' class='publish-Button'>Publicar</button> 
         </div>
   
-      </section> 
-  
-      <div class='postContainer'></div>
-  
-      <div class="tab-menu">
+    </section> 
+
+    <div class="tab-menu">
         <ul class="tab-menu-list">
-          <li class="tab-menu-item tab-menu-active">
-            <span class='tab-menu-icon'><img src='./images/home-line.png'></span>
-            <span class='tab-menu-text'>Inicio</span>
-          </li>
-  
-          <li class="tab-menu-item">
-            <span class='tab-menu-icon'><img src='./images/user-line.png'></span>
-            <span class='tab-menu-text'>Mi cuenta</span>
-          </li>
-        </ul>
-      </div>`;
+            <li class="tab-menu-item tab-menu-active">
+              <span class='tab-menu-icon'><img src='./images/home-line.png'></span>
+              <span class='tab-menu-text'>Inicio</span>
+            </li>
+
+            <li class="tab-menu-item">
+              <span class='tab-menu-icon' id='profileSection'><img src='./images/user-line.png'></span>
+              <span class='tab-menu-text'>Mi cuenta</span>
+             </li>
+         </ul>
+    </div> 
+
+    <div class='postContainer'></div>`;
+
     const newSection = document.createElement('section');
     newSection.setAttribute('class', 'homeSection');
     newSection.innerHTML = viewHome;
@@ -56,22 +55,12 @@ import {
   };
   
   export const createBehaviorHomeView = () => {
-    // const postContainer = document.querySelector('.post-Content');
-    const buttonPost = document.querySelector('.publish-Button');
-    const userPostInfo = document.querySelector('#userPostCreate');
+    // const postContainer = document.querySelector('.post-Content'); 
+    const openModalHomePost= document.querySelector('.inputPostOpenModal');
+    const changeViewProfile= document.querySelector('#profileSection');
     const publications = document.querySelector('.postContainer');
     const menuItems = document.querySelectorAll('.tab-menu-item');
-  
-    // MANDANDO POSTS A FIRESTORE
-    buttonPost.addEventListener('click', () => {
-      createPost({
-        postContent: userPostInfo.value,
-        dateCreated: new Date().toLocaleString(),
-        userName: auth.currentUser.displayName,
-        userId: auth.currentUser.uid,
-      });
-    });
-  
+
     // BARRA ESTATICA
     const previousSelectItems = menuItems[0];
     menuItems.forEach((item) => {
@@ -80,6 +69,11 @@ import {
         // previousSelectItems = item;
         // item.classList.add('tab-menu-active');
       });
+    });
+    
+    //CAMBIAR DE VISTA HACIA EL PERFIL DEL USUARIO
+    changeViewProfile.addEventListener('click', () => {
+        window.location.href = '#/profile';
     });
   
     onGetPost((querySnapshot) => {
@@ -91,70 +85,109 @@ import {
         const currentuser = currentUser();
   
         htmlNewText += `
-                  <div class = 'allPostsContainer'>
+                <div class = 'allPostsContainer'>
   
                     <div class='individualPosts'>
   
-                      <div class = 'first-section-posts'>
-                        <div class = 'imageProfile'>
-                          <div class = 'UserNamer'> ${enteringTheCollection.userName} </div>
-                          <div class = 'dateCreatedP dataid='${postsDoc.id}'> ${enteringTheCollection.dateCreated} </div>
-                        </div>  
-                       
+                        <div class = 'first-section-posts'>
+                            <div class = 'imageProfile'>
+                                <div class = 'UserNamer'> ${enteringTheCollection.userName} </div>
+                                <div class = 'dateCreatedP dataid='${postsDoc.id}'> ${enteringTheCollection.dateCreated} </div>
+                            </div>
+                        </div>     
+
                         ${currentuser.uid === enteringTheCollection.userId ? `
-  
                         <div class='menuOptions'>  
-                          <button class='btn-seeMore'>
-                            <img src='./images/more-line.png'
-                          </button>
+                            <button class='btn-seeMore'>
+                                <img src='./images/more-line.png'
+                            </button>
   
-                          <ul id ='post-options-menu' class = 'post-options-menu'>
+                            <ul id ='post-options-menu' class = 'post-options-menu'>
   
-                            <div class = 'deleteOption'>
-                              <img src='./images/delete-bin-line.png' class='icon'> </img>
-                              <li class= 'post-menu-item' id= 'deleteSection' data-id='${postsDoc.id}'> Eliminar</li>
-                            </div>
+                                <div class = 'deleteOption'>
+                                    <img src='./images/delete-bin-line.png' class='icon'> </img>
+                                    <li class= 'post-menu-item' id= 'deleteSection' data-id='${postsDoc.id}'> Eliminar</li>
+                                </div>
   
-                            <br>
+                                <br>
   
-                            <div class = 'editOption'>
-                              <img src='./images/edit-box-line.png' class='icon'> </img>
-                              <li class= 'post-menu-item editPost' id= 'editPost' data-id='${postsDoc.id}'>Editar</li>
-                            </div>
-                          </ul>
-  
-                        </div>
-  
-                      </div> ` : ''}
-  
-                      <imput type='text' class= 'textPost' disabled="true" id='${postsDoc.id}'> ${enteringTheCollection.postContent}
+                                <div class = 'editOption'>
+                                    <img src='./images/edit-box-line.png' class='icon'> </img>
+                                    <li class= 'post-menu-item editPost' id= 'editPost' data-id='${postsDoc.id}'>Editar</li>
+                                </div>
+
+                            </ul>
+                        </div> ` : ''}
                   
                     </div>
+
+                    <br>
+
+                    <imput type='text' class= 'textPost' disabled="true" id='${postsDoc.id}'> ${enteringTheCollection.postContent}
   
+                    <br>
+                    <br>
+
                     <div class= 'interactions'>
                       <img src='./images/heart-3-line.png' class= 'interactionsbuttons'>
                       <img src='./images/chat-1-line.png' class= 'interactionsbuttons'>
                     </div>
+
+
   
-                  </div>`;
+                </div>
+                  
+                <section class='modalHome'>
+                    <div class = 'modal_containerHome'>
+                        <div class= 'firstModalSection'>
+                            <button class= 'closeModalHome'>X</button>
+                            <h3 class='createPostModal'>Crear publicación</h3>
+                            <a href='#/home' class= 'publishBtnModal'>Publicar</a>
+                        </div>
+            
+                        <div class='secondModalSection'>
+                            <div class ='userInfoModal'>
+                                <div class ='imageUser'></div>
+                                <div class ='UserNameModal'> ${currentuser.displayName} </div>
+                            </div>
+                            <textarea id='userPostCreate' class='inputPost' placeholder='Vamos, ¡pon algo!'></textarea>
+                        </div>
+
+                        <div class='thirdModalSection'>
+                            <div class = 'photoSelect'>
+                                <input type='file' class='insertImageBtn' accept='image/png, image/jpeg'>
+                            </div>    
+                        </div>
+                    </div>
+                </section> `;
   
         publications.innerHTML = htmlNewText;
         const textPost = document.querySelector('.textPost');
+        const modalPostHome = document.querySelector('.modalHome');
+        const buttonPost = document.querySelector('.publishBtnModal');
+        const userPostInfo = document.querySelector('#userPostCreate');
+        const btnEquisModal = document.querySelector('.closeModalHome');
+
+        //ABRIR POST MODAL
+        openModalHomePost.addEventListener('click',() =>{
+            modalPostHome.classList.add('modalShowHome');
+        });
+
+        //CERRAR POST MODAL
+        btnEquisModal.addEventListener('click', (event) => {
+           // const btnCerrarSesion = event.target.closest('.menu-salir').querySelector('.opciones-btn-salir');
+           modalPostHome.classList.remove('modalShowHome');
+        }); 
   
-        // // MENU PARA TEDITAR O ELIMAR EL POST
-        // const menusDesplegables = document.querySelectorAll('.btn-seeMore');
-        // menusDesplegables.forEach((editbtnMenu) => {
-        //   console.log(editbtnMenu);
-        //   editbtnMenu.addEventListener('click', (event) => {
-        //     const btnMenu = event.target.closest('.menuOptions').querySelector
-        // ('.post-options-menu'); // btns edit,delete
-        //     if (btnMenu.classList.contains('show-Menu')) { // class show.menu
-        //       btnMenu.classList.remove('show-Menu');
-        //     } else {
-        //       btnMenu.classList.add('show-Menu');
-        //     }
-        //   });
-        // });
+        // MANDANDO POSTS A FIRESTORE
+        buttonPost.addEventListener('click', () => {
+            createPost({
+                postContent: userPostInfo.value,
+                dateCreated: new Date().toLocaleString(),
+                userName: auth.currentUser.displayName,
+            userId: auth.currentUser.uid,
+            });
+        });
   
         // ELIMINAR POST DE FIRESTORE
         const deleteBtn = publications.querySelectorAll('#deleteSection');
@@ -168,7 +201,7 @@ import {
         // EDITANDO EL POST
         const editBtn = publications.querySelectorAll('#editPost');
         editBtn.forEach((btn) => {
-          console.log(btn);
+          // console.log(btn);
           btn.addEventListener('click', async (e) => {
             const docId = await onePost(e.target.dataset.id);
             // const infoPost = docId.data();
@@ -197,4 +230,17 @@ import {
       });
     });
   };
-  
+        // // MENU PARA TEDITAR O ELIMAR EL POST
+        // const menusDesplegables = document.querySelectorAll('.btn-seeMore');
+        // menusDesplegables.forEach((editbtnMenu) => {
+        //   console.log(editbtnMenu);
+        //   editbtnMenu.addEventListener('click', (event) => {
+        //     const btnMenu = event.target.closest('.menuOptions').querySelector
+        // ('.post-options-menu'); // btns edit,delete
+        //     if (btnMenu.classList.contains('show-Menu')) { // class show.menu
+        //       btnMenu.classList.remove('show-Menu');
+        //     } else {
+        //       btnMenu.classList.add('show-Menu');
+        //     }
+        //   });
+        // });

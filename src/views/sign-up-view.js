@@ -2,7 +2,7 @@
 import { collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { registerWithEmail } from '../lib/index.js';
 import {
-  dataBase, signUpWithGmail, emailVerification, updateDisplayyName,
+  dataBase, signUpWithGmail, emailVerification, updateDisplayyName, GoogleAuthProvider,
 } from '../firebase/firebaseConfig.js';
 
 export const createSignUpView = () => {
@@ -39,7 +39,7 @@ export const createBehaviorSignUpView = () => {
   const userPassword = document.querySelector('#userPassword');
   const eMessage = document.querySelector('#eMessage');
   const submitButton = document.querySelector('.buttonsForm');
-  const gmailButton = document.querySelector('#gmailSignIn');
+  const gmailButton = document.querySelector('.gmail');
   const userName = document.querySelector('#userName');
 
   submitButton.addEventListener('click', () => {
@@ -89,47 +89,26 @@ export const createBehaviorSignUpView = () => {
       });
   });
 
-  gmailButton.addEventListener('click', () => {
+   gmailButton.addEventListener('click', (e) => {
     signUpWithGmail()
-      .then((result) => {
-      // eslint-disable-next-line no-console
-        console.log(result);
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // The signed-in user info.
-        const user = result.user;
-        // eslint-disable-next-line no-console
-        console.log(user);
-        // redireccionar y ruteo
-        window.location.href = '#/log-in';
-      }).catch((error) => {
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // eslint-disable-next-line no-console
-        console.log(errorMessage, email);
-      // The AuthCredential type that was used.
-      // const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-      });
+    .then((result) => {
+      window.location.hash='#/home'
+    // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+    // The signed-in user info.
+      const user = result.user;
+    // ...
+    }).catch((error) => {
+    // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    // The email of the user's account used.
+      const email = error.customData.email;
+    // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
   });
+});
 
-  // gmailButton.addEventListener('click', () => {
-  //   signUpWithGmail()
-  //     .then((result) => {
-  //     // This gives you a Google Access Token. You can use it to access Google APIs.
-  //       const credential = GoogleAuthProvider.credentialFromResult(result);
-  //       const token = credential.accessToken;
-
-  //       // The signed-in user info.
-  //       const user = result.user;
-  //     }).catch((error) => {
-  //       // Handle Errors here.
-  //       const errorMessage = error.message;
-  //       // The email of the user's account used.
-  //       const email = error.customData.email;
-  //       // The AuthCredential type that was used.
-  //       const credential = GoogleAuthProvider.credentialFromError(error);
-  //       // ...
-  //     });
-  // });
 };
